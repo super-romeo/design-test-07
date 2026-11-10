@@ -177,5 +177,9 @@ header a { border-radius: var(--radius-field); }
 /* ===== Header 07: Button in header; light grey footer ===== */
 header nav a:last-child { background: var(--accent); color: #fff; padding: 0 1rem; margin-left: .5rem; font-weight: 600; }
 header nav a:last-child:hover { background: var(--accent); color: #fff; opacity: .92; }
+@media (max-width: 767px) {
+header .shell { position: relative; }
+header nav a:last-child { position: absolute; top: 10px; right: var(--gutter); margin: 0; }
+}
 footer { background: #eef2f7; color: #0a1524; --ink: #0a1524; --steel: #566174; border-top: 1px solid #dde2ea; }
 footer a, footer p { color: #0a1524; }
