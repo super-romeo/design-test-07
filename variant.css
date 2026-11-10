@@ -183,3 +183,58 @@ header nav a:last-child { position: absolute; top: 10px; right: var(--gutter); m
 }
 footer { background: #eef2f7; color: #0a1524; --ink: #0a1524; --steel: #566174; border-top: 1px solid #dde2ea; }
 footer a, footer p { color: #0a1524; }
+
+/* ===== v7: header button aligned with the name row on phones (jury defect) ===== */
+@media (max-width: 767px) {
+  header .shell { min-height: 0; padding-top: 6px; padding-bottom: 4px; row-gap: 0; }
+  header .home { min-height: 40px; }
+  header nav a:last-child { top: 6px; min-height: 40px; }
+}
+/* ===== Motion 04: Load cascade only, no reveal on scroll, static dot ===== */
+.reveal, .dot, .skel { animation: none !important; }
+
+/* ===== Commands 07: Emil: mobile-native ===== */
+/* ===== command: mobile-native ===== */
+/* Platform layer only. With a mouse (hover: hover + pointer: fine) and zero safe-area insets every rule below is a no-op. */
+
+/* §2 the grey/blue tap flash is the loudest "website" tell; our own :active states (below) replace it */
+html { -webkit-tap-highlight-color: transparent; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+/* §5 no double-tap-zoom wait on controls; §8 long-press must not select a control's label (content stays selectable) */
+a, select, label { touch-action: manipulation; }
+.button, header a { -webkit-user-select: none; user-select: none; }
+.button { -webkit-touch-callout: none; }
+
+/* §7 edge-to-edge (viewport-fit=cover in the meta tag): pad content, not the page, away from notch and home indicator */
+.shell { padding-left: max(var(--gutter), env(safe-area-inset-left, 0px)); padding-right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+footer { padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px)); }
+
+/* iOS Safari before 18 ignores the unprefixed property: the sticky header was see-through without blur */
+header { -webkit-backdrop-filter: blur(12px); }
+
+/* smooth anchor scrolling is motion too */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+@media (max-width: 767px) {
+  /* row one of the header: 40px → 44px targets; anchors land below the two-row sticky header, not under it */
+  header .home, header nav a:last-child { min-height: 44px; }
+  header nav a:last-child { right: max(var(--gutter), env(safe-area-inset-right, 0px)); }
+  section { scroll-margin-top: 104px; }
+}
+
+/* everything that is not a precise hovering pointer */
+@media not all and (hover: hover) and (pointer: fine) {
+  /* §1 a tap leaves :hover stuck until the next tap elsewhere — hover styles return to rest */
+  header a:hover { color: var(--steel); background: transparent; }
+  header .home:hover { color: var(--ink); }
+  header nav a:last-child:hover { color: #fff; background: var(--accent); opacity: 1; }
+  .button.quiet:hover { border-color: var(--line); }
+
+  /* §5 feedback on finger-down, 120ms ease-out instead of the .6s spring (which reads as lag under a finger) */
+  .button, header a, footer a { transition: transform 120ms ease-out, background-color 120ms ease-out, border-color 120ms ease-out, color 120ms ease-out, opacity 120ms ease-out; }
+  .button:active { transform: scale(.97); }
+  .button.quiet:active { border-color: var(--accent); background: var(--accent-wash); }
+  header a:active { color: var(--ink); background: var(--accent-wash); }
+  header nav a:last-child:active { color: #fff; background: var(--accent); transform: scale(.97); }
+  footer a:active { opacity: .6; }
+}
