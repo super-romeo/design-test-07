@@ -1,72 +1,132 @@
-/* Neighbour Check: Taste Skill on its own files (taste/). This file holds only:
-   1. the theme setting, the :root block as start.mjs printed it (palette mint-pink-accounts, type outfit);
-   2. page CSS inside the visuals (the kit's references allow it there);
-   3. the least needed to undo the shared base stylesheet (style.css) where it clashes with the system. */
+/* Stitch Design Taste (DESIGN.md "Taste Standard": creativity 8, density 4, variance 8, motion 6).
+   Tokens from the style, then general rules only. */
 
-/* 1. theme (start.mjs css --page software --radius soft), the values set to the smokes' house palette and
-   one font, Inter (rule СМ-04, brief 4: the same colours and font on every variant, light everywhere):
-   the inverse side and the lit ground are light too, so no block on the page is dark or tinted */
 :root {
-  --p-bg: #fcfcfc; --p-surface: #f7f8f9; --p-ink: #05080b; --p-muted: #5c646f;
-  --p-accent: #006acf; --p-accent-ink: #ffffff; --p-action: #006acf; --p-action-ink: #ffffff;
-  --p-inv-bg: #f7f8f9; --p-inv-surface: #ffffff; --p-inv-ink: #05080b; --p-inv-muted: #5c646f;
-  --p-inv-accent: #006acf; --p-inv-accent-ink: #ffffff; --p-inv-action: #006acf; --p-inv-action-ink: #ffffff;
-  --ground-bg: #f7f8f9; --ground-surface: #ffffff; --ground-ink: #05080b; --ground-muted: #5c646f; --ground-accent: #006acf;
-  --card: #ffffff; --line: #dfe1e5;
-  --font-display: "Inter", system-ui, sans-serif;
-  --font-text: "Inter", system-ui, sans-serif;
-  --font-mono: "Inter", system-ui, sans-serif;
-  --display-weight: 400;
-  --display-tracking: -0.03em;
-  --display-tracking-xl: -0.04em;
+  /* colour — smokes' house palette (СМ-04); one blue accent, white text passes AA */
+  --canvas: #fcfcfc;                    /* page */
+  --surface: #ffffff;                   /* cards */
+  --ink: #05080b;                       /* text */
+  --steel: #5c646f;                     /* secondary text */
+  --line: #dfe1e5;                      /* borders */
+  --border: #dfe1e5;                    /* borders on cards */
+  --accent: #006acf;
+  --accent-ink: #006acf;
+  --accent-wash: #d6efff;
+  --focus: #0086dd;
+  --shadow: 0 20px 40px -15px rgba(0, 0, 0, .05);  /* Diffused Shadow */
+  /* type — one family, Inter */
+  --font-sans: "Geist", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Geist", "Segoe UI", system-ui, sans-serif;
+  --text-display: clamp(2.25rem, 5vw, 3.75rem);
+  --text-h2: clamp(1.75rem, 3vw, 2.5rem);
+  --text-h3: 1.25rem;
+  --text-body: 1.0625rem;
+  --text-meta: .8125rem;
+  --tracking: -.025em;
+  --leading-tight: 1.1;
+  --leading-body: 1.65;
+  /* space, shape — §4, §6, §7 */
+  --max: 1400px;
+  --gutter: clamp(1rem, 4vw, 4rem);
+  --section: 6rem;                      /* 3rem below 768px, see media */
+  --gap: clamp(2rem, 5vw, 5rem);
+  --pad-card: 2.5rem;                   /* 1.5rem below 768px */
+  --radius-card: 2.5rem;
+  --radius-inner: 1.5rem;
+  --radius-field: 1rem;
+  --radius-pill: 999px;
+  /* motion — §8, spring approximated as a cubic curve */
+  --spring: cubic-bezier(.2, .9, .25, 1);
+  --dur: .6s;
 }
 
-/* 2. inside the visuals */
-/* the hero's pieces sit straight on the art (no .stage), so they take the white UI surface a .stage gives */
-.hero__art > .ly-piece { --fx-bg: #ffffff; --fx-surface: var(--p-surface); --fx-ink: var(--p-ink); --fx-muted: var(--p-muted); --fx-accent: var(--p-accent); }
-/* the small card on the art, as the collage demo places it; the window keeps --ly-cut-room clear at its right */
-.hero__art > .ly-piece--note { left: var(--s-6); bottom: var(--s-6); width: 300px; z-index: 2; }
-.hero__art > .ly-piece--main .ui-win__main { padding-right: var(--ly-cut-room); }
-@media (max-width: 1023px) { .hero__art > .ly-piece--note { left: var(--s-4); bottom: var(--s-4); width: 270px; } }
-#what .panel { --p-h: 232px; }
-/* a phone's doc is too narrow for the note beside it: the marked words carry it */
-@media (max-width: 639px) { #example .ui-doc__note { display: none; } }
-/* a ticked check here is a thing done for the buyer, not a task struck off: no line through it */
-.ui-check.is-done .ui-check__label { color: var(--u-ink); }
-.ui-check.is-done .ui-check__label::after { transform: scaleX(0); }
-/* the four results of a report */
-.ui-win__st[data-kind] { box-shadow: none; }
-.ui-win__st[data-kind="private"] { color: #1a7f37; background: #dafbe1; }
-.ui-win__st[data-kind="community"] { color: #9a6700; background: #fff8c5; }
-.ui-win__st[data-kind="public"] { color: #05080b; background: #d6efff; }
-.ui-win__st[data-kind="unknown"] { color: #5c646f; background: #f7f8f9; }
-/* the drawn avatars: the palette's soft accent instead of the kit's five hues; the focus ring in its own blue */
-.ui-avatar[data-tone] { background: #d6efff; color: #05080b; }
-:focus-visible { outline-color: #0086dd; }
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--canvas); color: var(--ink); font: 400 var(--text-body)/var(--leading-body) var(--font-sans); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { margin: 0; color: var(--ink); font-weight: 600; letter-spacing: var(--tracking); line-height: var(--leading-tight); text-wrap: balance; }
+h1 { font-size: var(--text-display); }
+h2 { font-size: var(--text-h2); }
+h3 { font-size: var(--text-h3); }
+p { margin: 0; color: var(--steel); max-width: 65ch; }
+b { font-weight: 600; color: var(--ink); }
+a { color: inherit; }
+svg { display: block; }
+:focus-visible, select:focus { outline: 2px solid var(--focus); outline-offset: 2px; }
 
-/* 3. the shared base stylesheet, undone where it clashes */
-.wrap { max-width: none; }
-header.nav { backdrop-filter: none; }
-header .nav__bar { flex-wrap: nowrap; justify-content: flex-start; gap: var(--s-8); min-height: 0; }
-@media (max-width: 1023px) { header .nav__bar { gap: var(--s-3); } }
-@media (max-width: 639px) { header .nav__bar { gap: var(--s-2); } }
-.btn { margin-top: 0; }
-.card span { color: inherit; font-size: inherit; line-height: inherit; }
-footer a { color: inherit; }
-footer .muted { margin: 0; color: var(--muted); }
-footer .closing__cta { padding: 0; }
+/* layout */
+.shell { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+section { padding: var(--section) 0; border-top: 1px solid var(--line); scroll-margin-top: 64px; }
+main > section:first-child { border-top: 0; }
+section > * + * { margin-top: clamp(2rem, 4vw, 3rem); }
+.split { display: grid; grid-template-columns: var(--cols, minmax(0, 7fr) minmax(0, 5fr)); gap: 1.5rem var(--gap); }
+.flip { --cols: minmax(0, 5fr) minmax(0, 7fr); }
+.split > * + * { margin-top: 0; }
+.stack { display: grid; gap: 1.25rem; align-content: start; justify-items: start; }
+.cluster { display: flex; flex-wrap: wrap; gap: .5rem; }
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 1rem; }
+.bento > * { grid-column: span 5; }
+.bento > .wide { grid-column: span 7; }
 
-/* 4. design test (brief 6): the same content on every layout. The four facts stand in the words' column, two by
-   two (a span-5 column holds two of the kit's fact cells a row); the pictures use the kit's own photo rules
-   (.hero__media > img, .panel > .frame__img) */
-.hero--collage .hero__text > .hero__facts > div { grid-column: auto / span 6; }
-/* the words' column with the facts is taller than a 1280x800 screen: the hero grows with it (the kit's own phone
-   recipe: at least the first screen, one grid row the .wrap is stretched to), the picture stays as tall as the hero */
-@media (min-width: 640px) {
-  main > .hero--collage { height: auto; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr; }
-  main > .hero--collage > .wrap { height: auto; }
+/* header, footer (also replace the shared base: white header, navy footer) */
+header { position: sticky; top: 0; z-index: 10; background: rgba(252, 252, 252, .86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+header .shell { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: 64px; }
+header nav { display: flex; flex-wrap: wrap; }
+header a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; padding: 0 .75rem; border-radius: var(--radius-pill); color: var(--steel); text-decoration: none; transition: background-color var(--dur) var(--spring), color var(--dur) var(--spring); }
+header a:hover { color: var(--ink); background: var(--surface); }
+header .home { padding-left: 0; color: var(--ink); font-weight: 600; }
+footer { padding: 2.5rem 0 3rem; background: transparent; color: var(--ink); border-top: 1px solid var(--line); font-size: .9375rem; }
+footer a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 500; text-underline-offset: 3px; }
+
+/* components */
+.meta { display: inline-flex; align-items: center; gap: .5rem; font: 500 var(--text-meta)/1.4 var(--font-mono); letter-spacing: .02em; color: var(--steel); }
+.soft { color: var(--steel); }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: .6rem; min-height: 52px; padding: 0 1.5rem; border: 1px solid var(--accent); border-radius: var(--radius-pill); background: var(--accent); color: #ffffff; font-weight: 600; text-decoration: none; transition: transform var(--dur) var(--spring), background-color var(--dur) var(--spring), border-color var(--dur) var(--spring); }
+.button:hover { background: var(--accent-ink); }
+.button:active { transform: translateY(1px) scale(.98); }
+.button::after { content: ""; width: 1.1em; height: 1.1em; background: currentColor; -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23006acf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23006acf' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center / contain no-repeat; }
+.button.quiet { min-height: 44px; border-color: var(--line); background: var(--surface); color: var(--ink); font-weight: 500; }
+.button.quiet:hover { border-color: var(--accent); }
+.art { width: 100%; height: clamp(12rem, 20vw, 16rem); overflow: hidden; border-radius: var(--radius-inner); background: var(--canvas); }
+.art img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.rows { width: 100%; margin: 0; padding: 0; list-style: none; counter-reset: n; }
+.rows > * { padding: 1rem 0; border-top: 1px solid var(--line); }
+.rows > :first-child { border-top: 0; }
+.rows > li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 1rem; align-items: center; }
+.rows svg { width: 100%; height: 34px; }
+ol.rows > li::before { counter-increment: n; content: counter(n, decimal-leading-zero); align-self: start; font: 500 var(--text-meta)/1.8 var(--font-mono); color: var(--steel); }
+.tile { margin: 0; padding: var(--pad-card); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+.badge { display: inline-flex; align-items: center; gap: .5rem; padding: .4rem .75rem; border: 1px solid var(--line); border-radius: var(--radius-pill); background: var(--surface); color: var(--steel); font: 500 .75rem/1.2 var(--font-mono); white-space: nowrap; }
+.badge.on { border-color: transparent; background: var(--accent-wash); color: var(--ink); }
+.dot { width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--accent); }
+.skel { height: 10px; border-radius: var(--radius-pill); background: linear-gradient(90deg, var(--canvas), var(--line), var(--canvas)) 0 0 / 200% 100%; }
+label { display: grid; gap: .5rem; width: 100%; font-weight: 500; }
+select { width: 100%; min-width: 0; min-height: 52px; padding: 0 1rem; font: inherit; color: var(--ink); background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-field); }
+
+/* hero: left text, right drawn phone; inline glyphs between words (§5) */
+.shot { display: block; align-self: center; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border: 1px solid var(--border); border-radius: var(--radius-card); box-shadow: var(--shadow); }
+.facts { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem var(--gap); margin: 1.5rem 0 0; padding-top: 1.5rem; border-top: 1px solid var(--line); }
+.facts dt { font: 500 var(--text-meta)/1.4 var(--font-mono); letter-spacing: .02em; color: var(--steel); }
+.facts dd { margin: .25rem 0 0; font-weight: 600; }
+
+@media (max-width: 767px) {
+  :root { --section: 3rem; --pad-card: 1.5rem; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+  .bento > *, .bento > .wide { grid-column: 1 / -1; }
+  .button { width: 100%; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  header nav { margin-left: -.75rem; }
 }
-@media (min-width: 1024px) { .hero--collage .hero__art { height: auto; align-self: stretch; } }
-/* the close word is the brand, two words: on a phone it wraps instead of running off the screen */
-@media (max-width: 639px) { .close__word { white-space: normal; } }
-.hero--collage .hero__text > .hero__facts { margin-top: var(--s-6); }
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } }
+  @keyframes pulse { 50% { opacity: .4; transform: scale(.75); } }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .rise { animation: rise .9s var(--spring) calc(var(--i, 0) * 100ms) both; }
+  .dot { animation: pulse 2s ease-in-out infinite; }
+  .skel { animation: shimmer 2.4s ease-in-out infinite; }
+  @supports (animation-timeline: view()) {
+    .reveal { animation: rise var(--spring) both; animation-timeline: view(); animation-range: entry 0% entry 100%; }
+  }
+}
+
+
