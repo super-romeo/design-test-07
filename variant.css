@@ -3,16 +3,16 @@
 
 :root {
   /* colour — smokes' house palette (СМ-04); one blue accent, white text passes AA */
-  --canvas: #fcfcfc;                    /* page */
+  --canvas: #fbfcfd;                    /* page */
   --surface: #ffffff;                   /* cards */
-  --ink: #0a0a0a;                       /* text */
-  --steel: #62625f;                     /* secondary text */
-  --line: #e0e0dd;                      /* borders */
-  --border: #e0e0dd;                    /* borders on cards */
-  --accent: #111111;
-  --accent-ink: #111111;
-  --accent-wash: #ececea;
-  --focus: #555555;
+  --ink: #0a1524;                       /* text */
+  --steel: #566174;                     /* secondary text */
+  --line: #dde2ea;                      /* borders */
+  --border: #dde2ea;                    /* borders on cards */
+  --accent: #12397a;
+  --accent-ink: #12397a;
+  --accent-wash: #dfe8f7;
+  --focus: #2f6fd6;
   --shadow: 0 20px 40px -15px rgba(0, 0, 0, .05);  /* Diffused Shadow */
   /* type — one family, Inter */
   --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
@@ -68,7 +68,7 @@ section > * + * { margin-top: clamp(2rem, 4vw, 3rem); }
 .bento > .wide { grid-column: span 7; }
 
 /* header, footer (also replace the shared base: white header, navy footer) */
-header { position: sticky; top: 0; z-index: 10; background: rgba(252, 252, 252, .86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+header { position: sticky; top: 0; z-index: 10; background: rgba(251, 252, 253, .86); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 header .shell { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; min-height: 64px; }
 header nav { display: flex; flex-wrap: wrap; }
 header a { display: inline-flex; align-items: center; gap: .6rem; min-height: 44px; padding: 0 .75rem; border-radius: var(--radius-pill); color: var(--steel); text-decoration: none; transition: background-color var(--dur) var(--spring), color var(--dur) var(--spring); }
@@ -130,3 +130,26 @@ select { width: 100%; min-width: 0; min-height: 52px; padding: 0 1rem; font: inh
 }
 
 
+
+/* ===== Background 06: Grey alternating + dark form block and footer ===== */
+#wat, #opis { --band: #eef2f7; box-shadow: 0 0 0 100vmax var(--band); clip-path: inset(0 -100vmax); background: var(--band); border-top-color: transparent; }
+#wat + section, #opis + section { border-top-color: transparent; }
+#start { --band: #0d2247; --ink: #ffffff; --steel: #c3cee2; --line: rgba(255,255,255,.18); --border: rgba(255,255,255,.16);
+  --surface: #17315f; --accent-wash: rgba(255,255,255,.12); --focus: #9dbcf5; color: var(--ink); box-shadow: 0 0 0 100vmax var(--band); clip-path: inset(0 -100vmax); background: var(--band); border-top-color: transparent; }
+#start .button:not(.quiet) { background: #fff; border-color: #fff; color: #12397a; }
+#start .button.quiet { background: transparent; color: #fff; border-color: rgba(255,255,255,.4); }
+#start select { background-color: #17315f; color: #fff; border-color: rgba(255,255,255,.3); }
+#start + section { border-top-color: transparent; }
+footer { background: #0d2247; color: #fff; border-top: 0; --ink: #fff; --steel: #c3cee2; }
+footer a, footer p { color: #fff; }
+
+/* ===== v2 fixes after jury: form card light inside the dark block; footer separated from the form block ===== */
+#start .tile { --ink: #0a1524; --steel: #566174; --line: #dde2ea; --border: #dde2ea; --surface: #ffffff; --focus: #2f6fd6; background: #ffffff; color: #0a1524; border-color: transparent; }
+#start .tile select { background-color: #ffffff; color: #0a1524; border-color: #b9c3d2; }
+#start .tile .button:not(.quiet) { background: #12397a; border-color: #12397a; color: #ffffff; }
+footer { background: #081833; border-top: 1px solid rgba(255,255,255,.14); }
+/* ===== Shape 07: Medium radius, strong borders, no shadow ===== */
+:root { --radius-card: 1rem; --radius-inner: .75rem; --radius-field: .625rem; --radius-pill: .625rem; }
+header a { border-radius: var(--radius-field); }
+:root { --line: #b9c3d2; --border: #b9c3d2; --shadow: none; }
+.tile, select, .button.quiet { border-width: 1.5px; }
