@@ -169,8 +169,13 @@ header a { border-radius: var(--radius-field); }
   background: radial-gradient(circle at 16px 15px, #b9c3d2 4px, transparent 5px), radial-gradient(circle at 32px 15px, #b9c3d2 4px, transparent 5px),
     radial-gradient(circle at 48px 15px, #b9c3d2 4px, transparent 5px), #e9edf3; }
 .window .shot { border: 0; border-radius: 0; box-shadow: none; }
-/* ===== Density 07: Compact with bigger headline ===== */
+/* ===== Density 02: Compact: smaller gaps between blocks ===== */
 @media (min-width: 768px) {
 :root { --section: 4rem; --gap: clamp(1.5rem, 3.5vw, 3.5rem); --pad-card: 1.75rem; }
 }
-:root { --text-display: clamp(2.5rem, 6.4vw, 4.75rem); --text-h2: clamp(1.9rem, 3.6vw, 3rem); }
+
+/* ===== Header 07: Button in header; light grey footer ===== */
+header nav a:last-child { background: var(--accent); color: #fff; padding: 0 1rem; margin-left: .5rem; font-weight: 600; }
+header nav a:last-child:hover { background: var(--accent); color: #fff; opacity: .92; }
+footer { background: #eef2f7; color: #0a1524; --ink: #0a1524; --steel: #566174; border-top: 1px solid #dde2ea; }
+footer a, footer p { color: #0a1524; }
