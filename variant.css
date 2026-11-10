@@ -55,3 +55,18 @@ header .nav__bar { flex-wrap: nowrap; justify-content: flex-start; gap: var(--s-
 footer a { color: inherit; }
 footer .muted { margin: 0; color: var(--muted); }
 footer .closing__cta { padding: 0; }
+
+/* 4. design test (brief 6): the same content on every layout. The four facts stand in the words' column, two by
+   two (a span-5 column holds two of the kit's fact cells a row); the pictures use the kit's own photo rules
+   (.hero__media > img, .panel > .frame__img) */
+.hero--collage .hero__text > .hero__facts > div { grid-column: auto / span 6; }
+/* the words' column with the facts is taller than a 1280x800 screen: the hero grows with it (the kit's own phone
+   recipe: at least the first screen, one grid row the .wrap is stretched to), the picture stays as tall as the hero */
+@media (min-width: 640px) {
+  main > .hero--collage { height: auto; min-height: 100vh; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: 1fr; }
+  main > .hero--collage > .wrap { height: auto; }
+}
+@media (min-width: 1024px) { .hero--collage .hero__art { height: auto; align-self: stretch; } }
+/* the close word is the brand, two words: on a phone it wraps instead of running off the screen */
+@media (max-width: 639px) { .close__word { white-space: normal; } }
+.hero--collage .hero__text > .hero__facts { margin-top: var(--s-6); }
