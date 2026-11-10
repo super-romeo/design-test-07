@@ -148,8 +148,19 @@ footer a, footer p { color: #fff; }
 #start .tile select { background-color: #ffffff; color: #0a1524; border-color: #b9c3d2; }
 #start .tile .button:not(.quiet) { background: #12397a; border-color: #12397a; color: #ffffff; }
 footer { background: #081833; border-top: 1px solid rgba(255,255,255,.14); }
-/* ===== Shape 07: Medium radius, strong borders, no shadow ===== */
+/* ===== Shape 02: Medium radius, rounded-rectangle buttons ===== */
 :root { --radius-card: 1rem; --radius-inner: .75rem; --radius-field: .625rem; --radius-pill: .625rem; }
 header a { border-radius: var(--radius-field); }
-:root { --line: #b9c3d2; --border: #b9c3d2; --shadow: none; }
-.tile, select, .button.quiet { border-width: 1.5px; }
+
+/* ===== Cards 05: Grid 2x2, picture on the side ===== */
+.art { height: auto; aspect-ratio: 4 / 3; }
+@media (min-width: 768px) {
+.bento > *, .bento > .wide { grid-column: span 6; }
+#wat .tile { display: grid; grid-template-columns: minmax(0, 11rem) minmax(0, 1fr); column-gap: 1.5rem; align-items: center; }
+#wat .tile .art { grid-row: 1 / span 3; }
+#wat .tile > :not(.art) { grid-column: 2; }
+#wat .tile { padding: 1.5rem; }
+}
+
+/* ===== Hero 07: As now, picture in a window frame with deep shadow ===== */
+main > section:first-of-type > .shot { border: 1px solid #c9d2e0; border-top: 30px solid #e3e8f0; border-radius: var(--radius-inner); box-shadow: 0 40px 70px -30px rgba(10, 21, 36, .45), 0 2px 6px rgba(10, 21, 36, .08); }
