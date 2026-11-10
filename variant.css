@@ -5,18 +5,18 @@
   /* colour — smokes' house palette (СМ-04); one blue accent, white text passes AA */
   --canvas: #fcfcfc;                    /* page */
   --surface: #ffffff;                   /* cards */
-  --ink: #05080b;                       /* text */
-  --steel: #5c646f;                     /* secondary text */
-  --line: #dfe1e5;                      /* borders */
-  --border: #dfe1e5;                    /* borders on cards */
-  --accent: #006acf;
-  --accent-ink: #006acf;
-  --accent-wash: #d6efff;
-  --focus: #0086dd;
+  --ink: #0a0a0a;                       /* text */
+  --steel: #62625f;                     /* secondary text */
+  --line: #e0e0dd;                      /* borders */
+  --border: #e0e0dd;                    /* borders on cards */
+  --accent: #111111;
+  --accent-ink: #111111;
+  --accent-wash: #ececea;
+  --focus: #555555;
   --shadow: 0 20px 40px -15px rgba(0, 0, 0, .05);  /* Diffused Shadow */
   /* type — one family, Inter */
-  --font-sans: "Geist", "Segoe UI", system-ui, sans-serif;
-  --font-mono: "Geist", "Segoe UI", system-ui, sans-serif;
+  --font-sans: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Inter", "Segoe UI", system-ui, sans-serif;
   --text-display: clamp(2.25rem, 5vw, 3.75rem);
   --text-h2: clamp(1.75rem, 3vw, 2.5rem);
   --text-h3: 1.25rem;
